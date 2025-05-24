@@ -1,0 +1,35 @@
+/**
+ * generisches Interface mit generischen Elementen E
+ */
+public interface Stack<E> {
+    /**
+     * Legt ein neues Element oben auf den Stapel
+     * @param element Das Element welches auf den Stapel gelegt wird
+     */
+    void push(E element);
+
+    /**
+     * Gibt den Wert des obersten Elements zurück und entfernt dieses
+     * @return Der Wert des obersten Elements, null wenn der Stapel leer ist
+     */
+    E pop();
+
+    /**
+     * gibt den Wert des obersten Elements zurück, Stapel bleibt unverändert
+     * @return Der Wert des obersten Elements, null wenn der Stapel leer ist
+     */
+    E top();
+
+    /**
+     * gibt zurück ob der Stapel leer ist oder nicht
+     * @return true wenn Stapel leer ist, false wenn nicht
+     */
+    boolean isEmpty();
+
+    /**
+     * Gibt die Anzahl der Elemente zurück welche auf dem Stapel liegen
+     * @return Die Anzahl der Elemente die auf dem Stapel liegen
+     */
+    int size();
+
+}
