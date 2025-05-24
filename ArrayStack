@@ -1,0 +1,74 @@
+import java.util.Arrays;
+
+public class ArrayStack<E> implements Stack<E> {
+    private E[] array;
+    private int size;
+    private int capacity;
+
+    public ArrayStack() {
+        capacity = 1;
+        array = (E[]) new Object[capacity];
+        size = 0;
+    }
+
+    @Override
+    public void push(E element) {
+        if (size == capacity) {
+            resize(capacity * 2); // Verdopplung
+        }
+        array[size++] = element;
+    }
+
+    @Override
+    public E pop() {
+        if (isEmpty()) throw new IllegalStateException("Stack is empty");
+        E element = array[--size];
+        array[size] = null; // Speicher freigeben
+
+        // Verkleinern, wenn weniger als 40% genutzt werden und Kapazität > 1
+        if (size < capacity * 0.4 && capacity > 1) {
+            resize(Math.max(1, capacity / 2));
+        }
+
+        return element;
+    }
+
+    @Override
+    public E top() {
+        if (isEmpty()) throw new IllegalStateException("Stack is empty");
+        return array[size - 1];
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    // Hilfsmethode zum Anpassen der Array-Größe
+    private void resize(int newCapacity) {
+        array = Arrays.copyOf(array, newCapacity);
+        capacity = newCapacity;
+    }
+
+    // Zum Testen
+    public static void main(String[] args) {
+        ArrayStack<Integer> stack = new ArrayStack<>();
+
+        // Test: Push mit Wachstum
+        for (int i = 1; i <= 10; i++) {
+            stack.push(i);
+            System.out.println("Pushed: " + i + " | Size: " + stack.size() + " | Capacity: " + stack.capacity);
+        }
+
+        // Test: Pop mit Verkleinerung
+        for (int i = 0; i < 9; i++) {
+            int val = stack.pop();
+            System.out.println("Popped: " + val + " | Size: " + stack.size() + " | Capacity: " + stack.capacity);
+        }
+    }
+}
