@@ -1,0 +1,64 @@
+import java.util.Iterator;
+import java.util.LinkedList;
+
+public class ListStack<E> implements Stack<E>, Iterable<E> {
+
+    private LinkedList<E> list;
+
+    public ListStack() {
+        list = new LinkedList<>();
+    }
+
+    @Override
+    public void push(E element) {
+        list.addFirst(element); // Stack-Oberseite am Anfang der Liste
+    }
+
+    @Override
+    public E pop() {
+        if (isEmpty()) throw new IllegalStateException("Stack is empty");
+        return list.removeFirst();
+    }
+
+    @Override
+    public E top() {
+        if (isEmpty()) throw new IllegalStateException("Stack is empty");
+        return list.getFirst();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
+    @Override
+    public int size() {
+        return list.size();
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return list.iterator(); // Gibt einen Iterator vom obersten zum untersten Element zurück
+    }
+
+
+    public static void main(String[] args) {
+        ListStack<String> stringStack = new ListStack<>();
+
+        stringStack.push("One");
+        stringStack.push("Two");
+        stringStack.push("Three");
+        stringStack.push("Four");
+        stringStack.push("Five");
+
+        System.out.println("== Stack-Inhalte (oben → unten) ==");
+        for (String s : stringStack) {
+            System.out.println(s);
+        }
+
+        System.out.println("\n== Stack leeren ==");
+        while (!stringStack.isEmpty()) {
+            System.out.println("Popped: " + stringStack.pop());
+        }
+    }
+}
